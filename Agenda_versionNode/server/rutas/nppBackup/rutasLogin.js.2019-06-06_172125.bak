@@ -1,0 +1,12 @@
+
+const Rutas = require('express').Router(),
+	  Login = require('../modelo/modeloLogin')
+
+Rutas.post('/login', function(req, res){
+	var user = req.body.user
+	var pass = req.body.pass
+	console.log('Login, usuario recibido: '+user+' clave: '+pass)
+	
+})
+
+module.exports = Rutas

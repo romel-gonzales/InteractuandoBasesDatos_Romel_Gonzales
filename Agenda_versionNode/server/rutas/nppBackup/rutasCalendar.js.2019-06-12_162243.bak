@@ -1,0 +1,89 @@
+
+const Rutas = require('express').Router(),
+	  Evento = require('../modelo/modeloCalendar')	
+
+
+Rutas.get('/', function(req, res){
+	res.send('dentro de rutas!!');
+	
+})
+
+Rutas.get('/all', function(req, res){
+	if(req.session.usuario)	
+	{
+		Evento.find().exec(function(err, doc){
+			if(err) {
+				resp.status(500);
+				res.json(err);
+			}
+			//console.log('Listando todos los eventos: '+doc)
+			res.json(doc);	
+		})
+	}
+	else{
+		console.log('Hacer inicio de sesion primero!!!!')
+		res.send('sesionNoActivada') 
+	}
+})
+
+Rutas.post('/new', function(req, res){
+	//console.log('/new, datos recibido de formulario: '+JSON.stringify(req.body));
+	if(req.session.usuario)	
+	{	
+		const eventos = new Evento(req.body)
+		console.log('schema a insertar a DB: '+eventos);
+		eventos.save(function(err){
+			if(err){
+				console.log(err)
+				res.json(err)
+			}
+		})
+	}
+	else{ 
+		console.log('Hacer inicio de sesion primero!!!!')
+		res.send('sesionNoActivada') 
+				
+	}
+})
+
+Rutas.post('/update', function(req, res){
+	
+	console.log('update a insertar a DB: '+JSON.stringify(req.body));	
+	if(req.session.usuario)	
+	{	
+		const eventos = new Evento(req.body)	
+		eventos.findOne({_id: req.body.id}, function(err, foundObject){
+				if(err){
+					console.log('error al encontrar update: '+err)
+				}
+				else{
+					foundObject.start = req.body.start
+					foundObject.end = req.body.end
+				}
+			
+			
+			
+			
+		})	
+	}
+	else{
+		console.log('Hacer inicio de sesion primero!!!!')
+		res.send('sesionNoActivada') 
+	}	
+})
+
+Rutas.post('/delete/:_id', function(req, res){
+	var id = req.params._id
+	console.log('id elemento a eliminar: '+id)
+	Evento.remove({_id: id}, function(err){
+		if(err){
+			console.log(err)
+			res.status(500)
+			res.json(err)
+		}
+		res.send("evento ha sido eliminado!!!")
+	})
+	
+})
+
+module.exports = Rutas

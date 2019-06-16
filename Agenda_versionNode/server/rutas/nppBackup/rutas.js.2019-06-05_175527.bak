@@ -1,0 +1,31 @@
+
+const Rutas = require('express').Router(),
+	  Evento = require('../modelo/modelo')	
+
+
+Rutas.get('/', function(req, res){
+	res.send('dentro de rutas!!');
+	
+})
+
+Rutas.get('/all', function(req, res){
+		Evento.find().exec(function(err, doc){
+			if(err) {
+				resp.status(500);
+				res.json(err);
+			}
+			//res.json(doc);
+			console.log('enviando respuesta dentro de /all!!!');	
+			res.send('Recibido');
+		})
+	
+})
+
+Rutas.post('/new', function(req, res){
+	//console.log('/new, datos recibido de formulario: '+JSON.stringify(req.body));
+	const eventos = new Evento(req.body)
+	eventos.save()
+})
+
+
+module.exports = Rutas

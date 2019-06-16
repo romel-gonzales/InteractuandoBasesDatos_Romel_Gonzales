@@ -1,0 +1,17 @@
+
+const mongoose = require('mongoose')
+	  Schema = mongoose.Schema;
+
+const EventoSchema = new Schema({
+	title: {type: String},
+	start: {type: String},
+	end: {type: String}
+})	
+
+const LoginSchema = new Schema({
+	user: {type: String},
+	pass: {type: String}	
+}) 
+
+module.exports = mongoose.model('eventos', EventoSchema) 
+module.exports = mongoose.model('login', LoginSchema)

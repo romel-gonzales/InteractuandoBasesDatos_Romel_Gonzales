@@ -1,0 +1,28 @@
+
+const RutasLogin = require('express').Router(),
+	  Login = require('../modelo/modeloLogin')
+
+RutasLogin.post('/login', function(req, res){
+	var usuario = req.body.user
+	var clave = req.body.pass
+	console.log('Login, usuario recibido: '+usuario+' clave: '+clave)
+	Login.findOne({}, function(err, user){
+			if(err){
+				console.log('error en login')
+				res.status(500)
+				res.json(err)
+			}
+			console.log('resultado login: '+user)
+			if(user){
+				console.log('count value: '+count)
+				res.send("Validado")
+			}
+			else{
+					console.log('no se logro logear')
+					res.send("Credenciales de usuario incorrectas!!")
+				
+			}	
+	})
+})
+
+module.exports = RutasLogin

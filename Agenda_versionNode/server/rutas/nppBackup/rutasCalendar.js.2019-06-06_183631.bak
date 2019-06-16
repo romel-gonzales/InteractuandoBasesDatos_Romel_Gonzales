@@ -1,0 +1,48 @@
+
+const Rutas = require('express').Router(),
+	  Evento = require('../modelo/modeloCalendar')	
+
+
+Rutas.get('/', function(req, res){
+	res.send('dentro de rutas!!');
+	
+})
+
+Rutas.get('/all', function(req, res){
+		Evento.find().exec(function(err, doc){
+			if(err) {
+				resp.status(500);
+				res.json(err);
+			}
+			res.json(doc);	
+		})
+	
+})
+
+Rutas.post('/new', function(req, res){
+	//console.log('/new, datos recibido de formulario: '+JSON.stringify(req.body));
+	const eventos = new Evento(req.body)
+	console.log('schema a insertar a DB: '+eventos);
+	eventos.save(function(err){
+		if(err){
+			console.log(err)
+			res.json(err)
+		}
+	})
+})
+
+Rutas.post('/delete/:_id', function(req, res){
+	var id = req.params._id
+	console.log('id elemento a eliminar: '+id)
+	Evento.remove({_id: id}, function(err){
+		if(err){
+			console.log(err)
+			res.status(500)
+			res.json(err)
+		}
+		res.send("evento ha sido eliminado!!!")
+	})
+	
+})
+
+module.exports = Rutas

@@ -1,0 +1,8 @@
+
+const mongoose = require('mongose')
+	  Schema = mongoose.Schema;
+
+const EventoSchema = new Schema({
+	
+	
+})	  

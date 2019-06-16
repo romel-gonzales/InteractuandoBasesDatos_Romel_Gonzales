@@ -1,0 +1,17 @@
+
+const Rutas = require('express').Router(),
+	  Evento = require('../modelo/modelo')	
+
+
+Rutas.get('/', function(req, res){
+	res.send('dentro de rutas!!');
+	
+})
+
+Rutas.get('/all', function(req, res){
+		res.send('dentro de rutas!!');
+	
+})
+
+
+module.exports = Rutas

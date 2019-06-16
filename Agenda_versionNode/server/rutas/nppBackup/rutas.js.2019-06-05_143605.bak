@@ -1,0 +1,11 @@
+
+const Rutas = require('express').Router()
+
+
+Rutas.get('*', function(req, res){
+	res.send('dentro de rutas!!');
+	
+})
+
+
+module.exports = Rutas

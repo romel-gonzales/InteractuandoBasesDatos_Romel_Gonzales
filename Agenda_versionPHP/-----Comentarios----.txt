@@ -1,0 +1,10 @@
+
+
+1.- el archivo agenda.sql contiene el dump de la base de datos para la restauracion de la BD
+
+2.- la pagina PHP ../server/create_user.php creara los usuarios en la BD
+
+3.- Las credenciales de los tres usuarios de ingreso:
+	user:romel@romel.com   clave:romel
+	user:glenda@glenda.com   glenda:romel
+	user:lilieth@lilieth.com   clave:lilieth	
